@@ -1,0 +1,105 @@
+{% extends '../index_master.html' %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="container-fluid py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0">LOGO</h4>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <h4 class="mb-0">ORDEN SOPORTE TÉCNICO</h4>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <h5 class="mb-0">
+                            NÚMERO DE ORDEN
+                            <br>
+                            <span class="badge bg-light text-primary">N. {{ nuevo_numero_orden }}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Orden de Mantenimiento</h2>
+    
+                <form action="" method="POST">
+                    {% csrf_token %}
+    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Datos del cliente</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <p><strong>Cliente:</strong> {{ orden_mantenimiento.cliente.nombres }} {{ orden_mantenimiento.cliente.apellidos }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p><strong>Cédula:</strong> {{ orden_mantenimiento.cliente.numero_identificacion }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Datos del equipo</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p><strong>Equipo:</strong> {{ orden_mantenimiento.equipo.nombre }}</p>
+                                    <p><strong>Modelo:</strong> {{ orden_mantenimiento.modelo }}</p>
+                                    <p><strong>Marca:</strong> {{ orden_mantenimiento.marca }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><strong>Color:</strong> {{ orden_mantenimiento.color }}</p>
+                                    <p><strong>Contraseña:</strong> {{ orden_mantenimiento.contrasena }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><strong>Desea Respaldo:</strong> {{ orden_mantenimiento.desea_respaldo|yesno:"Sí,No" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Observaciones</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ orden_mantenimiento.observaciones }}</p>
+                        </div>
+                    </div>
+    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Detalle de Daño</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ orden_mantenimiento.detalles_dano }}</p>
+                        </div>
+                    </div>
+    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Diagnóstico</h5>
+                        </div>
+                        <div class="card-body">
+                            <textarea id="diagnostico" name="diagnostico" class="form-control" rows="4" placeholder="Ingrese el diagnóstico aquí..."></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fa fa-list mr-2"></i>Guardar Diagnóstico
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

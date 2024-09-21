@@ -1,0 +1,58 @@
+{% extends '../index_master.html' %} {% block content %}
+<div class="right_col" role="main">
+  <h1>Actualizar Equipos</h1>
+
+  <form action="/editarTipoOrden/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="tipo_equipos_id" value="{{tipo_equipos.id}}">
+
+    <div class="form-group row">
+      <label for="nombre_equipo" class="col-4 col-form-label">Nombre</label>
+      <div class="col-8">
+        <input
+          id="nombre_equipo"
+          name="nombre_equipo"
+          value="{{tipo_equipos.nombre}}"
+          type="text"
+          required="required"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="codigo_equipo" class="col-4 col-form-label"
+        >Codigo</label
+      >
+      <div class="col-8">
+        <input
+          id="codigo_equipo"
+          name="codigo_equipo"
+          value="{{tipo_equipos.codigo}}"
+          type="text"
+          class="form-control"
+          required="required"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="estado_respaldo_equipo" class="col-5 col-form-label" 
+        >Respaldos</label
+      >
+        <input 
+        type="checkbox"
+        id="estado_respaldo_equipo" 
+        name="estado_respaldo_equipo"
+        >
+      </div>
+
+    <div class="form-group row">
+      <div class="offset-4 col-8">
+        <button name="submit" type="submit" class="btn btn-primary">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

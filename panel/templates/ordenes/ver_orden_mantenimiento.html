@@ -1,0 +1,127 @@
+{% extends '../index_master.html' %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="container-fluid py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0">LOGO</h4>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <h4 class="mb-0">ORDEN SOPORTE TÉCNICO</h4>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <h5 class="mb-0">
+                            NÚMERO DE ORDEN
+                            <br>
+                            <span class="badge bg-light text-primary">N. {{ orden.id }}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="card-title">Orden de Mantenimiento</h2>
+                    <a href="{% url 'generar_pdf_orden_mantenimiento' orden.id %}" class="btn btn-danger">
+                        <i class="fas fa-file-pdf mr-2"></i>Generar PDF
+                    </a>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Datos del cliente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><strong>Cliente:</strong> {{ orden.cliente.nombres }} {{ orden.cliente.apellidos }}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><strong>Número de Identificación:</strong> {{ orden.cliente.numero_identificacion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Especificaciones del equipo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><strong>Equipo:</strong> {{ orden.equipo.nombre }}</p>
+                                <p><strong>Modelo:</strong> {{ orden.modelo }}</p>
+                                <p><strong>Marca:</strong> {{ orden.marca }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>N° de Serie:</strong> {{ orden.numero_serie }}</p>
+                                <p><strong>Color:</strong> {{ orden.color }}</p>
+                                <p><strong>Contraseña:</strong> {{ orden.contrasena }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>Estado:</strong></p>
+                                <ul>
+                                    {% for estado in orden.estado.all %}
+                                    <li>{{ estado.nombre }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Accesorios del equipo CPU</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for accesorio in orden.accesorios.all %}
+                            <li class="list-group-item">{{ accesorio.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" {% if orden.desea_respaldo %}checked{% endif %} disabled>
+                            <label class="form-check-label"><strong>¿Desea que se realice respaldos?</strong></label>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Observaciones del equipo</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ orden.observaciones }}</p>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">DETALLES DEL DAÑO</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>¿Cuál es el inconveniente?:</strong></p>
+                        <p>{{ orden.detalles_dano }}</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{% url 'lista_ordenes' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-left mr-2"></i>Volver a la Lista de Órdenes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

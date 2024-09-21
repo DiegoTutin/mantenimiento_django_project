@@ -1,0 +1,305 @@
+{% extends '../index_master.html' %} {% block content %}
+
+<div class="right_col" role="main">
+  <h1>Administración de Ordenes</h1>
+  <div
+    id="error-message"
+    class="alert alert-danger"
+    style="display: none"
+  ></div>
+
+  <div class="text-center">
+    <div style="display: inline-block">
+      <a href="agregar_orden_mantenimiento">
+        <button
+          class="btn btn-primary btn-lg fa fa-plus"
+          style="margin-top: -60px"
+        ></button>
+      </a>
+      <a href="agregar">
+        <button
+          class="btn btn btn-warning btn-lg fa fa-user-plus"
+          style="margin-top: -60px"
+        ></button>
+      </a>
+      <form action="" method="POST" style="display: inline-block">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="palabraclave"
+          id="palabraclave"
+          class="form-control form-control-sm"
+          style="width: 550px; display: inline-block"
+          placeholder="Buscar..."
+        />
+        <button name="buscar" class="btn btn-success">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Número</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Equipo</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Fecha entrega</th>
+          <th scope="col">Trabajo</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ordenes in page_obj %}
+        <tr>
+          <td>{{ ordenes.id }}</td>
+          <td>{{ ordenes.cliente.nombres }} {{ ordenes.cliente.apellidos }}</td>
+          <td>{{ ordenes.equipo.nombre }}</td>
+          <td>{{ ordenes.fecha }}</td>
+          <td>{{ ordenes.fecha_entrega }}</td>
+          <td>{{ ordenes.trabajo }}</td>
+          <td>{{ ordenes.estado_equipo }}</td>
+          <td>
+            <a href="{% url 'ver_orden_mantenimiento' ordenes.id %}">
+              <button class="btn-sm btn btn-dark fa fa-eye"></button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <nav aria-label="Navegación de páginas">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Primera">
+              <span aria-hidden="true">&laquo;&laquo;</span>
+              <span class="sr-only">Primera</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Anterior</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Primera">
+              <span aria-hidden="true">&laquo;&laquo;</span>
+              <span class="sr-only">Primera</span>
+            </a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Anterior">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Anterior</span>
+            </a>
+          </li>
+        {% endif %}
+    
+        <li class="page-item active" aria-current="page">
+          <span class="page-link">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+          </span>
+        </li>
+    
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Siguiente</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última">
+              <span aria-hidden="true">&raquo;&raquo;</span>
+              <span class="sr-only">Última</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Siguiente">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Siguiente</span>
+            </a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Última">
+              <span aria-hidden="true">&raquo;&raquo;</span>
+              <span class="sr-only">Última</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  /* Fuente minimalista: Open Sans, importada desde Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+  body, h1, h5, table {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+    color: #333;
+  }
+
+  /* Estilo para la tabla y su contenedor */
+  .table-container {
+    margin: 20px auto;
+    width: 80%;
+    font-size: 14px;
+    background-color: #fff; /* Fondo blanco para mayor contraste */
+    border-radius: 10px; /* Bordes redondeados en el contenedor de la tabla */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    padding: 10px; /* Añadir algo de espacio interior */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Elimina los espacios entre bordes */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+thead th {
+    background-color: #007bff; /* Color de fondo azul monocromático */
+    color: white;
+    text-align: left;
+    padding: 12px;
+    font-size: 12px; /* Tamaño de fuente un poco mayor */
+    font-weight: 600; /* Mayor peso de fuente */
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd; /* Líneas entre filas */
+    color: #333; /* Color de texto oscuro */
+    font-size: 14px; /* Tamaño más legible */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color de fondo alternativo para las filas pares */
+}
+
+tbody tr:hover {
+    background-color: #e6f7ff; /* Color de fondo más llamativo al hacer hover */
+}
+
+.table-hover tbody tr:hover td {
+    color: #007bff; /* Cambia el color de texto al hacer hover */
+}
+
+tfoot td {
+    padding: 12px;
+    background-color: #f0f0f0; /* Fondo suave para el pie de la tabla */
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+th, td {
+    border: none;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+  /* Botón de agregar cliente con icono más grande */
+  .btn-add-client {
+    margin-top: -60px;
+    font-size: 15px;
+  }
+
+  /* Input de búsqueda alineado y con bordes minimalistas */
+  .search-input {
+    width: 550px;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    font-size: 16px;
+  }
+
+  .btn-search {
+    display: inline-block;
+    font-size: 18px;
+    padding: 5px 20px;
+    border-radius: 30px;
+  }
+
+  /* Estilo de los botones de iconos, con iconos más grandes */
+  .btn-icon {
+    font-size: 10px;
+    padding: 10px 10px;
+  }
+
+  /* Paginación centrada y más espaciada */
+  .pagination {
+    display: flex;
+    justify-content: center; /* Asegura que todo esté centrado horizontalmente */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+.pagination .step-links {
+    display: flex; /* Permite centrar los elementos dentro del contenedor */
+    justify-content: center;
+    gap: 10px; /* Espacio entre los enlaces */
+}
+
+.pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 8px 12px; /* Añade un poco de relleno para hacer los enlaces más grandes */
+    background-color: #f0f0f0; /* Fondo suave para destacar */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    text-decoration: none;
+    background-color: #007bff; /* Cambia el color de fondo al hacer hover */
+    color: white; /* Cambia el color del texto en hover */
+}
+
+.pagination .current {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+
+</style>
+
+{% endblock %}

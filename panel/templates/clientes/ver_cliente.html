@@ -1,0 +1,106 @@
+{% extends '../index_master.html' %} 
+{% block content %}
+
+<div class="right_col" role="main">
+  <h1>Detalle del Cliente</h1>
+
+  <div class="form-group row">
+    <label for="nombres_cliente" class="col-4 col-form-label">Nombres</label>
+    <div class="col-8">
+      <input
+        id="nombres_cliente"
+        name="nombres_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.nombres }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="apellidos_cliente" class="col-4 col-form-label">Apellidos</label>
+    <div class="col-8">
+      <input
+        id="apellidos_cliente"
+        name="apellidos_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.apellidos }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="tipo_identificacion_cliente" class="col-4 col-form-label">Tipo de identificación</label>
+    <div class="col-8">
+      <input
+        id="tipo_identificacion_cliente"
+        name="tipo_identificacion_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.tipo_identificacion }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="num_identi_cliente" class="col-4 col-form-label">Número de identificación</label>
+    <div class="col-8">
+      <input
+        id="num_identi_cliente"
+        name="num_identi_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.numero_identificacion }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="email_cliente" class="col-4 col-form-label">Correo Electrónico</label>
+    <div class="col-8">
+      <input
+        id="email_cliente"
+        name="email_cliente"
+        type="email"
+        class="form-control"
+        value="{{ cliente.correo_electronico }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="celular_cliente" class="col-4 col-form-label">Celular</label>
+    <div class="col-8">
+      <input
+        id="celular_cliente"
+        name="celular_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.celular }}"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="direcci_cliente" class="col-4 col-form-label">Direccion</label>
+    <div class="col-8">
+      <input
+        id="direcci_cliente"
+        name="direcci_cliente"
+        type="text"
+        class="form-control"
+        value="{{ cliente.direccion }}"
+        readonly
+      />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="offset-4 col-8">
+      <a href="{% url 'listar' %}" class="btn btn-secondary">Regresar</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

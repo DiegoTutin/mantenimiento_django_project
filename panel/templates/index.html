@@ -1,0 +1,160 @@
+{% extends 'index_master.html' %}
+{% block content %}
+
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="container-fluid">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Panel de Control</h1>
+      <p>Administra y supervisa el estado de las reparaciones de computadoras.</p>
+    </div>
+
+    <!-- Somos Section -->
+    <div class="about-section">
+      <h2>Somos</h2>
+      <p>Somos un equipo de profesionales dedicados a ofrecer soluciones efectivas en el mantenimiento y reparación de computadoras. Nuestra misión es asegurar el mejor desempeño y durabilidad de tus equipos mediante un servicio técnico especializado y confiable.</p>
+    </div>
+
+    <!-- Qué Hacemos Section -->
+    <div class="services-section">
+      <h2>Qué Hacemos</h2>
+      <ul>
+        <li>Diagnóstico y reparación de hardware.</li>
+        <li>Mantenimiento preventivo y correctivo.</li>
+        <li>Instalación y configuración de software.</li>
+        <li>Recuperación de datos y eliminación de virus.</li>
+        <li>Asesoramiento y actualización de equipos.</li>
+      </ul>
+    </div>
+
+    <!-- Quick Access Section -->
+
+  </div>
+</div>
+<!-- /page content -->
+
+<style>
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .welcome-section h1 {
+    font-size: 28px;
+    color: #007bff;
+  }
+
+  .welcome-section p {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .about-section, .services-section, .vision-section, .mission-section {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  .about-section h2, .services-section h2, .vision-section h2, .mission-section h2 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+
+  .services-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+
+  .services-section li {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .recent-tasks-section {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  .recent-tasks-section h5 {
+    font-size: 18px;
+    color: #007bff;
+  }
+
+  .recent-tasks-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .recent-tasks-list li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .recent-tasks-list li strong {
+    color: #007bff;
+  }
+
+  .quick-access-section {
+    text-align: center;
+  }
+
+  .quick-access-section h5 {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+
+  .quick-access-buttons a {
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .quick-access-buttons a.btn-primary {
+    background-color: #007bff;
+  }
+
+  .quick-access-buttons a.btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .quick-access-buttons a.btn-secondary {
+    background-color: #6c757d;
+  }
+
+  .quick-access-buttons a.btn-secondary:hover {
+    background-color: #565e64;
+  }
+
+  .quick-access-buttons a.btn-success {
+    background-color: #28a745;
+  }
+
+  .quick-access-buttons a.btn-success:hover {
+    background-color: #218838;
+  }
+
+  .quick-access-buttons a.btn-info {
+    background-color: #17a2b8;
+  }
+
+  .quick-access-buttons a.btn-info:hover {
+    background-color: #117a8b;
+  }
+</style>
+
+{% endblock %}

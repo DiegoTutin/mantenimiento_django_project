@@ -1,0 +1,152 @@
+{% extends '../index_master.html' %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="container-fluid py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0">LOGO</h4>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <h4 class="mb-0">ORDEN SOPORTE TÉCNICO</h4>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <h5 class="mb-0">
+                            NÚMERO DE ORDEN
+                            <br>
+                            <span class="badge bg-light text-primary">N. {{ nuevo_numero_orden }}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+    
+            <form class="card-body" action="" method="POST">
+                {% csrf_token %}
+                
+                <h5 class="card-title text-center mb-4">Datos del cliente</h5>
+                
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <label for="cliente" class="form-label">Cliente</label>
+                        <select id="cliente" name="cliente" class="form-select" required onchange="updateNumeroIdentificacion()">
+                            <option value="" selected disabled>Seleccione un cliente</option>
+                            {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}" data-identificacion="{{ cliente.numero_identificacion }}">
+                                {{ cliente.nombres }} {{ cliente.apellidos }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputNumeroIdentificacion" class="form-label">Número de Identificación</label>
+                        <input type="text" readonly class="form-control" id="inputNumeroIdentificacion">
+                    </div>
+                </div>
+    
+                <h5 class="card-title text-center mb-4">Especificaciones del equipo</h5>
+    
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="equipo" class="form-label">Equipo</label>
+                            <select id="equipo" name="equipo" class="form-select select2" required>
+                                {% for equipo in equipos %}
+                                <option value="{{ equipo.id }}">{{ equipo.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input id="modelo" name="modelo" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="marca" class="form-label">Marca</label>
+                            <input id="marca" name="marca" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="numero_serie" class="form-label">N° de Serie</label>
+                            <input id="numero_serie" name="numero_serie" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="color" class="form-label">Color</label>
+                            <input id="color" name="color" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            <input id="contrasena" name="contrasena" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Estado</label>
+                        {% for estado in estados %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="estados" value="{{ estado.id }}" id="estado_{{ estado.id }}">
+                            <label class="form-check-label" for="estado_{{ estado.id }}">
+                                {{ estado.nombre }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+    
+                <h5 class="card-title text-center mb-4">Accesorios del equipo CPU</h5>
+                <div class="row mb-4">
+                    <div class="col-md-6 offset-md-3">
+                        {% for accesorio in accesorios %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="accesorios" value="{{ accesorio.id }}" id="accesorio_{{ accesorio.id }}">
+                            <label class="form-check-label" for="accesorio_{{ accesorio.id }}">
+                                {{ accesorio.nombre }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+    
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6 text-md-end">
+                        <strong>¿Desea que se realice respaldos?</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="desea_respaldo" name="desea_respaldo">
+                            <label class="form-check-label" for="desea_respaldo">Sí, realizar respaldos</label>
+                        </div>
+                    </div>
+                </div>
+    
+                <h5 class="card-title text-center mb-4">Observaciones del equipo</h5>
+                <div class="mb-4">
+                    <label for="observaciones" class="form-label">Observaciones</label>
+                    <textarea id="observaciones" name="observaciones" rows="3" class="form-control"></textarea>
+                </div>
+    
+                <h5 class="card-title text-center mb-4">DETALLES DEL DAÑO</h5>
+                <div class="mb-4">
+                    <label for="detalles_dano" class="form-label">¿Cuál es el inconveniente?:</label>
+                    <textarea id="detalles_dano" name="detalles_dano" rows="3" class="form-control"></textarea>
+                </div>
+    
+                <div class="text-center">
+                    <button name="submit" type="submit" class="btn btn-primary btn-lg">Guardar Orden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function updateNumeroIdentificacion() {
+        const selectCliente = document.getElementById('cliente');
+        const inputIdentificacion = document.getElementById('inputNumeroIdentificacion');
+        
+        const selectedOption = selectCliente.options[selectCliente.selectedIndex];
+        
+        const numeroIdentificacion = selectedOption.getAttribute('data-identificacion');
+        
+        inputIdentificacion.value = numeroIdentificacion;
+    }
+</script>    
+{% endblock %}

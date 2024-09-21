@@ -1,0 +1,58 @@
+{% extends '../index_master.html' %} {% block content %}
+<div class="right_col" role="main">
+  <h1>Ver Tipo Equipo</h1>
+
+  <form action="/editarTipoOrden/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="tipo_equipos_id" value="{{tipo_equipos.id}}">
+
+    <div class="form-group row">
+      <label for="nombre_equipo" class="col-4 col-form-label">Nombre</label>
+      <div class="col-8">
+        <input
+          id="nombre_equipo"
+          name="nombre_equipo"
+          value="{{equipo.nombre}}"
+          type="text"
+          required="required"
+          class="form-control"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="codigo_equipo" class="col-4 col-form-label"
+        >Codigo</label
+      >
+      <div class="col-8">
+        <input
+          id="codigo_equipo"
+          name="codigo_equipo"
+          value="{{equipo.codigo}}"
+          type="text"
+          class="form-control"
+          readonly
+
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="estado_respaldo_equipo" class="col-5 col-form-label" 
+        >Respaldos</label
+      >
+        <input 
+        type="checkbox"
+        id="estado_respaldo_equipo" 
+        name="estado_respaldo_equipo"
+        >
+      </div>
+
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <a href="{% url 'lista_tipo_equipos' %}" class="btn btn-secondary">Regresar</a>
+          </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

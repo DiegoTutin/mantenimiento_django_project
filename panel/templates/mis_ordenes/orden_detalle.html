@@ -1,0 +1,101 @@
+{% extends '../index_master.html' %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="container-fluid py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0">LOGO</h4>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <h4 class="mb-0">DETALLE DE ORDEN</h4>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <h5 class="mb-0">
+                            NÚMERO DE ORDEN
+                            <br>
+                            <span class="badge bg-light text-primary">N. {{ orden_mantenimiento.id }}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Detalle de la Orden</h2>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Detalles del Cliente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><strong>Cliente:</strong> {{ orden_mantenimiento.cliente.nombres }} {{ orden_mantenimiento.cliente.apellidos }}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><strong>Número de Serie:</strong> {{ orden_mantenimiento.numero_serie }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Detalles del Equipo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><strong>Equipo:</strong> {{ orden_mantenimiento.equipo.nombre }}</p>
+                                <p><strong>Modelo:</strong> {{ orden_mantenimiento.modelo }}</p>
+                                <p><strong>Marca:</strong> {{ orden_mantenimiento.marca }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>Color:</strong> {{ orden_mantenimiento.color }}</p>
+                                <p><strong>Contraseña:</strong> {{ orden_mantenimiento.contrasena }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong>Desea Respaldo:</strong> {{ orden_mantenimiento.desea_respaldo|yesno:"Sí,No" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Diagnóstico</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if diagnósticos %}
+                            <ul class="list-group">
+                                {% for diagnostico in diagnósticos %}
+                                    <li class="list-group-item">
+                                        <h6 class="mb-1">Diagnóstico #{{ forloop.counter }}</h6>
+                                        <p class="mb-1"><strong>Descripción:</strong> {{ diagnostico.diagnostico }}</p>
+                                        <p class="mb-1"><strong>Fecha:</strong> {{ diagnostico.fecha_diagnostico|date:"d/m/Y H:i" }}</p>
+                                        <p class="mb-0"><strong>Usuario:</strong> {{ diagnostico.usuario.username }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No hay diagnósticos registrados.</p>
+                        {% endif %}
+                    </div>
+                </div>
+    
+                <div class="text-center mt-4">
+                    <a href="{% url 'lista_ordenes' %}" class="btn btn-secondary btn-lg mr-2">
+                        <i class="fa fa-arrow mr-2"></i>Volver a la Lista
+                    </a>
+                    {% comment %}
+                    <a href="{% url 'editar_orden' orden_mantenimiento.id %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-edit mr-2"></i>Editar Orden
+                    </a>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

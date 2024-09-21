@@ -1,0 +1,122 @@
+{% extends '../index_master.html' %} {% block content %}
+<div class="right_col" role="main">
+  <h1>Actualizar Clientes</h1>
+
+  <form action="/editarcliente/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="clienteid" value="{{c.id}}">
+
+    <div class="form-group row">
+      <label for="nombres_cliente" class="col-4 col-form-label">Nombres</label>
+      <div class="col-8">
+        <input
+          id="nombres_cliente"
+          name="nombres_cliente"
+          value="{{c.nombres}}"
+          type="text"
+          required="required"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="apellidos_cliente" class="col-4 col-form-label"
+        >Apellidos</label
+      >
+      <div class="col-8">
+        <input
+          id="apellidos_cliente"
+          name="apellidos_cliente"
+          value="{{c.apellidos}}"
+          type="text"
+          class="form-control"
+          required="required"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="tipo_identificacion_cliente" class="col-4 col-form-label"
+        >Tipo de identificación</label
+      >
+      <div class="col-8">
+        <select
+          id="tipo_identificacion_cliente"
+          class="custom-select"
+          required="required"
+          name="tipo_identificacion_cliente">
+
+          <option value="Cédula">Cédula</option>
+          <option value="Ruc">Ruc</option>
+          <option value="Pasaporte">Pasaporte</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="num_identi_cliente" class="col-4 col-form-label"
+        >Número de identificación</label
+      >
+      <div class="col-8">
+        <input
+          id="num_identi_cliente"
+          name="num_identi_cliente"
+          value="{{c.numero_identificacion}}"
+          type="text"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email_cliente" class="col-4 col-form-label"
+        >Correo Electrónico</label
+      >
+      <div class="col-8">
+        <input
+          id="email_cliente"
+          name="email_cliente"
+          value="{{c.correo_electronico}}"
+          type="email"
+          required="required"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="celular_cliente" class="col-4 col-form-label">Celular</label>
+      <div class="col-8">
+        <input
+          id="celular_cliente"
+          name="celular_cliente"
+          value="{{c.celular}}"
+          type="text"
+          maxlength="10"
+          required="required"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="direcci_cliente" class="col-4 col-form-label"
+        >Direccion</label
+      >
+      <div class="col-8">
+        <input
+          id="direcci_cliente"
+          name="direcci_cliente"
+          value="{{c.direccion}}"
+          type="text"
+          class="form-control"
+          required="required"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-4 col-8">
+        <button name="submit" type="submit" class="btn btn-primary">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
