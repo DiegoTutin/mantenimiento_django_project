@@ -144,7 +144,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'diegosebastiantutin@gmail.com'
-EMAIL_HOST_PASSWORD = 'wyoxlfpgfhrzenkq'
+EMAIL_HOST_PASSWORD = 'mkmluflqascidkyg'
 EMAIL_SUBJECT_PREFIX = 'Password Recovery'
 
 PASSWORD_RESET_EMAIL = os.path.join(BASE_DIR, 'panel', 'templates', 'usuarios', 'mensaje_email_contrasena.html')
